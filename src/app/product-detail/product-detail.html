@@ -1,6 +1,13 @@
- @if (product()) {
+ @let selectedProduct = this.product()!;
+ @if (selectedProduct) {
         <p>You selected: 
-            <strong>{{productTitle}}</strong>
+            <strong>{{selectedProduct.title}}</strong>
         </p>
+        <p>{{selectedProduct.price | currency:'EUR'}}</p>
+        <div class="pill-group">
+            @for (cat of selectedProduct.categories | keyvalue; track cat.key){
+                <p class="pill">{{cat.value | lowercase}}</p>
+            }
+        </div>
         <button (click)="addToCart()">Add to cart</button>
     }
