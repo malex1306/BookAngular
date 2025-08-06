@@ -14,6 +14,27 @@ import { APP_SETTINGS, appSettings} from './app.settings';
   ]
 })
 export class App {
-  protected readonly title = signal('learnAsp');
+  protected  title: string = '';
   settings = inject(APP_SETTINGS);
+  
+  private setTitle = () =>{
+    this.title = this.settings.title;
+  }
+
+  private changeTitle(callback : Function) {
+    setTimeout(() => {
+      callback();
+    }, 2000);
+  }
+
+  constructor() {
+    this.onComplete().then(this.setTitle);
+  }
+  private onComplete(){
+    return new Promise<void>(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, 2000);
+    });
+  }
 }
