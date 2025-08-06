@@ -6,17 +6,17 @@
     <span>Click <a>Loard More</a>to see more products</span>
 }
 <ul class="pill-group">
-    @for (product of products; track product.id; let i = $index){
+    @for (product of products | sort: 'price'; track product.id;){
         <li class="pill" (click)="selectedProduct = product">
-            @switch (product.title){
-                @case ('Keyboard') {🎹}
-                @case ('Microphone') {🎙️}
-                @case ('default') {🏷️}
-            }{{product.title}}</li>
+            <app-product-view [id]="product.id"></app-product-view>
+        </li>
     }@empty {
         <p>No Products found!</p>
     }
 </ul>
+
+<h1>Favorites</h1>
+<app-favorites></app-favorites>
 <app-product-detail #productDetail [product]="selectedProduct" (added)="onAdded($event)"></app-product-detail>
 
 
