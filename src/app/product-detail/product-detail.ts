@@ -1,11 +1,11 @@
 import { CurrencyPipe, KeyValuePipe, LowerCasePipe } from '@angular/common';
 import { Component,input, output} from '@angular/core';
 import { Product } from '../product';
-import { Numeric } from '../numeric';
+
 
 @Component({
   selector: 'app-product-detail',
-  imports: [KeyValuePipe, CurrencyPipe, LowerCasePipe, Numeric],
+  imports: [KeyValuePipe, CurrencyPipe, LowerCasePipe],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
 })

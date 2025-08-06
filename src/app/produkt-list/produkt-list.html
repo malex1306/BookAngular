@@ -8,15 +8,12 @@
 <ul class="pill-group">
     @for (product of products | sort: 'price'; track product.id;){
         <li class="pill" (click)="selectedProduct = product">
-            <app-product-view [id]="product.id"></app-product-view>
+            {{ product.title }} - {{ product.price }}
         </li>
     }@empty {
         <p>No Products found!</p>
     }
 </ul>
-
-<h1>Favorites</h1>
-<app-favorites></app-favorites>
 <app-product-detail #productDetail [product]="selectedProduct" (added)="onAdded($event)"></app-product-detail>
 
 

@@ -3,12 +3,11 @@ import { Product } from '../product';
 import { ProductDetail } from '../product-detail/product-detail';
 import { SortPipe } from '../sort-pipe';
 import { ProductsService } from '../products.service';
-import { Favorites } from '../favorites/favorites';
-import { ProductView } from '../product-view/product-view';
+
 
 @Component({
   selector: 'app-produkt-list',
-  imports: [ProductDetail, SortPipe, Favorites, ProductView],
+  imports: [ProductDetail, SortPipe],
   templateUrl: './produkt-list.html',
   styleUrl: './produkt-list.css',
   providers: [ProductsService]

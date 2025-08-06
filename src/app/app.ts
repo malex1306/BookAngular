@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { ProduktList } from "./produkt-list/produkt-list";
 import { Copyright } from './copyright';
 import { APP_SETTINGS, appSettings} from './app.settings';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class App {
   settings = inject(APP_SETTINGS);
   
   private setTitle = () =>{
-    this.title = this.settings.title;
+    const timestamp = new Date();
+    this.title = `${this.settings.title} (${timestamp})`;
   }
 
   private changeTitle(callback : Function) {
@@ -28,13 +30,13 @@ export class App {
   }
 
   constructor() {
-    this.onComplete().then(this.setTitle);
+    this.title$.subscribe(this.setTitle);
   }
-  private onComplete(){
-    return new Promise<void>(resolve => {
-      setTimeout(() => {
-        resolve();
-      }, 2000);
-    });
-  }
+  
+
+  title$ = new Observable<void>(observer => {
+    setInterval(()=> {
+      observer.next();
+    }, 1000);
+  })
 }
