@@ -5,10 +5,11 @@ import { Copyright } from './copyright';
 import { APP_SETTINGS} from './app.settings';
 import { from, Observable } from 'rxjs';
 import { KeyLoggerComponent } from './key-logger.component/key-logger.component';
+import { AuthComponent } from './auth.component/auth.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ProduktList, Copyright, KeyLoggerComponent],
+  imports: [RouterOutlet, ProduktList, Copyright, KeyLoggerComponent, AuthComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
