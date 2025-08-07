@@ -1,4 +1,4 @@
-<header>{{ title }}</header>
+<header>{{ title() }}</header>
 <main class="main">
  <div class="content">
     <app-produkt-list></app-produkt-list>
@@ -6,5 +6,6 @@
 </main>
 <footer appCopyright> -v{{ settings.version}}</footer>
 <router-outlet></router-outlet>
+<app-key-logger [numeric]="true"></app-key-logger>
 
  

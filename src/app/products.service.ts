@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from './product';
+import { Observable, of } from 'rxjs';
 
 
 @Injectable({
@@ -7,8 +8,11 @@ import { Product } from './product';
 })
 export class ProductsService {
     
-  getProducts(): Product[] {
-   return [
+  getProducts(): Observable<Product[]> {
+   return of(this.products);
+  }
+  
+   private products : Product[] = [
     {
       id: 1,
       title: 'Keyboard',
@@ -41,7 +45,6 @@ export class ProductsService {
       price: 500,
       categories: {
         4: 'Entertainment',}
-    },
+    }
    ];
-  }
 }

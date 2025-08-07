@@ -1,13 +1,14 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, Signal, computed } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ProduktList } from "./produkt-list/produkt-list";
 import { Copyright } from './copyright';
 import { APP_SETTINGS, appSettings} from './app.settings';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
+import { KeyLoggerComponent } from './key-logger.component/key-logger.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ProduktList, Copyright],
+  imports: [RouterOutlet, ProduktList, Copyright, KeyLoggerComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
   providers: [
@@ -15,12 +16,12 @@ import { Observable } from 'rxjs';
   ]
 })
 export class App {
-  protected  title: string = '';
+  title: Signal<string> = signal('');
   settings = inject(APP_SETTINGS);
+  currentDate = signal(new Date());
   
   private setTitle = () =>{
-    const timestamp = new Date();
-    this.title = `${this.settings.title} (${timestamp})`;
+    this.currentDate.set(new Date());
   }
 
   private changeTitle(callback : Function) {
@@ -28,9 +29,21 @@ export class App {
       callback();
     }, 2000);
   }
+    private onComplete(){
+    return new Promise<void>(resolve => {
+      setInterval(() => {
+        resolve();
+      }, 2000);
+    });
+  }
 
   constructor() {
     this.title$.subscribe(this.setTitle);
+    this.title = computed(() => {
+      return `${this.settings.title} (${this.currentDate})`
+    })
+    const complete$ = from(this.onComplete())
+    complete$.subscribe(this.setTitle);
   }
   
 
