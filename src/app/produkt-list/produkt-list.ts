@@ -4,10 +4,12 @@ import { ProductDetail } from '../product-detail/product-detail';
 import { SortPipe } from '../sort-pipe';
 import { ProductsService } from '../products.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { ProductCreateComponent } from '../product-create.component/product-create.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-produkt-list',
-  imports: [ProductDetail, SortPipe],
+  imports: [ProductDetail, SortPipe, ProductCreateComponent, AsyncPipe],
   templateUrl: './produkt-list.html',
   styleUrl: './produkt-list.css'
 })

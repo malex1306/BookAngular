@@ -1,14 +1,17 @@
- @let selectedProduct = this.product()!;
- @if (selectedProduct) {
+ @let product = (product$ | async);
+ @if (product) {
         <p>You selected: 
-            <strong>{{selectedProduct.title}}</strong>
+            <strong>{{product.title}}</strong>
         </p>
-        <p>{{selectedProduct.price | currency:'EUR'}}</p>
+        <p>{{product.price | currency:'EUR'}}</p>
+        <input placeholder="New price" #price type="number" />
+        <button class="secondary"
+        (click)="changePrice(product, price.value)">Change</button>
         <div class="pill-group">
-            @for (cat of selectedProduct.categories | keyvalue; track cat.key){
-                <p class="pill">{{cat.value | lowercase}}</p>
-            }
+                <p class="pill">{{product.category}}</p>
         </div>
-        <button (click)="addToCart()">Add to cart</button>
-        <input appNumeric/>
+        <div class="button-group">
+            <button (click)="addToCart(product)">Add to cart</button>
+            <button class="delete" (click)="remove(product)">Delete</button>
+        </div>
     }

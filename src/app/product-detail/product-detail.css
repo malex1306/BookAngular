@@ -22,6 +22,25 @@ button:hover {
     background: color-mix(in srgb, var(--button-accent) 50%, transparent);
 }
 
+button.secondary {
+  display: inline;
+  margin-left: 5px;
+  --buton-accent: var(--vivid-pink);
+}
+
+button.delete{
+  display: inline;
+  margin-left: 5px;
+  --button-accent: var(--hot-red)
+}
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  flex-wrap: wrap;
+}
+
 .pill-group {
     display: flex;
     flex-direction: row;
