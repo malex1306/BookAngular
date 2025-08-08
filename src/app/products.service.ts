@@ -13,11 +13,14 @@ export class ProductsService {
 
   constructor(private http: HttpClient){}
     
-  getProducts(): Observable<Product[]> {
-   const options = new HttpParams().set("limit", 10).set("page", 1);
+  getProducts(limit?:number): Observable<Product[]> {
+    if (this.products.length === 0){
+   const options = new HttpParams().set("limit", limit || 10);
    return this.http.get<Product[]>(this.productsUrl, { params: options }).pipe(map(products => {this.products = products;
     return products;
   }));
+}
+return of(this.products)
   }
 
    private products : Product[] = [];

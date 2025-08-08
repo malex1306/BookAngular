@@ -171,3 +171,18 @@ h1 {
       margin-block: 1.5rem;
     }
   }
+
+  .caption {
+    display: flex;
+    align-items: center;
+    gap: 1.25em;
+  }
+
+  path {
+    transition: fill 0.3s ease;
+    fill: var(--gray-400);
+  }
+
+  a:hover svg path {
+    fill: var(--gray-900);
+  }

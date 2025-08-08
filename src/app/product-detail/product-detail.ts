@@ -1,45 +1,45 @@
-import { CurrencyPipe, AsyncPipe } from '@angular/common';
-import { Component,input, output, OnChanges} from '@angular/core';
+import { Component,input, OnInit} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../product';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { ProductsService } from '../products.service';
 import { AuthService } from '../auth.service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-product-detail',
-  imports: [ CurrencyPipe, AsyncPipe],
+  imports: [CommonModule],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
 })
-export class ProductDetail  {
+export class ProductDetail implements OnInit {
   product$: Observable<Product> | undefined;
-  added = output<Product>();
-  id = input<number>();
-  deleted = output();
+  id = input<string>();
+  
+
+  ngOnInit(): void {
+    this.product$ = this.productService.getProduct(Number(this.id()!));
+  }
 
 
 // get productTitle(){
 //   return this.product()!.title;
 // }
 
-constructor(private productService: ProductsService, public authService: AuthService){}
-
-ngOnChanges(): void {
-  this.product$ = this.productService.getProduct(this.id()!);
-}
-
+constructor(private productService: ProductsService, public authService: AuthService, private route: ActivatedRoute, private router: Router){}
 
 addToCart(product: Product){
-  this.added.emit(product);
+  
 }
 changePrice(product: Product, price: string){
-  this.productService.updateProduct(product.id, Number(price)).subscribe();
+  this.productService.updateProduct(product.id, Number(price)).subscribe(() =>
+  this.router.navigate(['/products']));
 }
 
 remove(product: Product) {
   this.productService.deleteProduct(product.id).subscribe(() => {
-    this.deleted.emit();
+    this.router.navigate(['/products']);
   })
 }
 }
