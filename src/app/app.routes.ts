@@ -13,6 +13,7 @@ export const routes: Routes = [
     { path: 'products/new', component: ProductCreateComponent},
     { path: 'products/:id', component: ProductDetail},
     { path: '', redirectTo: 'products', pathMatch: 'full'},
-    { path: '**', redirectTo: 'products'}
+    { path: '**', redirectTo: 'products'},
+    { path: 'user', loadChildren: () => import('./user.routes'), canMatch: [authGuard]}
     
 ];
