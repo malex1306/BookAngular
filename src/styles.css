@@ -58,3 +58,8 @@ a {
 .spacer {
     flex: 1 1 auto
 }
+
+label {
+    margin-bottom: 4px;
+    display: block;
+}

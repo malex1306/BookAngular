@@ -1,1 +1,8 @@
-<p>cart.component works!</p>
+<div [formGroup]="cartForm">
+    <div fromArrayName="products">
+        @for(product of cartForm.controls.products.controls; track $index){
+            <label>{{products[$index].title}}</label>
+            <input [formControlName]="$index" type="number" />
+        }
+    </div>
+</div>
