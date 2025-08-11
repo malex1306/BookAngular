@@ -1,23 +1,32 @@
 <h1>Add new Product</h1>
 <form [formGroup]="productForm!" (ngSubmit)="createProduct()">
+<mat-form-field>
+    <mat-label for="title">Title:</mat-label>
+    <input formControlName="title" matInput required />
+</mat-form-field>
+<mat-form-field>
+    <mat-label for="price">Price:</mat-label>
+    <input formControlName="price" type="number" matInput required/>
+    @if (productForm?.controls?.price?.touched && productForm?.controls?.price?.hasError('required')){
+        <mat-error>Price is required</mat-error>
+    }
+    @if (productForm?.controls?.price?.touched && productForm?.controls?.price?.hasError('required')){
+        <mat-error>Price should be grater than 0</mat-error>
+    }
+    @if (productForm?.controls?.price?.touched && productForm?.controls?.price?.hasError('priceMaximum')){
+        <mat-error>Price must be smaller or equal to 1000</mat-error>
+    }
+</mat-form-field>
+<mat-form-field>
+    <mat-label for="category">Category:</mat-label>
+    <mat-select formControlName="category">
+        <mat-option>Select a Category</mat-option>
+        <mat-option value="electronics">Electronics</mat-option>
+        <mat-option value="jewelery">Jewelery</mat-option>
+        <mat-option>Other</mat-option>
+     </mat-select>   
+</mat-form-field>
 <div>
-    <label for="title">Title:</label>
-    <input id="title" formControlName="title" required />
-</div>
-<div>
-    <label for="price">Price:</label>
-    <input id="price" formControlName="price" type="number" required/>
-</div>
-<div>
-    <label for="category">Category:</label>
-    <select id="category" formControlName="category">
-        <option>Select a Category</option>
-        <option value="electronics">Electronics</option>
-        <option value="jewelery">Jewelery</option>
-        <option>Other</option>
-     </select>   
-</div>
-<div>
-    <button type="submit">Create</button>
+    <button mat-raised-button type="submit" [disabled]="productForm?.invalid">Create</button>
 </div>
 </form>

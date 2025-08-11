@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../products.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatError, MatLabel } from '@angular/material/input';
+import { MatSelect, MatOption } from '@angular/material/select';
 
 @Component({
   selector: 'app-product-create',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatButton, MatInput, MatFormField, MatError, MatLabel, MatSelect, MatOption],
   templateUrl: './product-create.component.html',
   styleUrl: './product-create.component.css'
 })

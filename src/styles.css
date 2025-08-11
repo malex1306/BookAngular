@@ -12,7 +12,7 @@
     position: relative;
 }
 
-input.valid, input.ng-dirty.ng-valid {
+/* input.valid, input.ng-dirty.ng-valid {
     border: solid green;
 }
 
@@ -25,9 +25,9 @@ input {
     padding: 8px;
     margin-bottom: 16px;
     border: 1px solid #BDBDBD;
-}
+} */
 
-button{
+/* button{
     display: flex;
     align-items: center;
     --button-accent: var(--bright-blue);
@@ -49,7 +49,7 @@ button{
 
 button:hover {
     background: color-mix(in srgb, var(--button-accent) 50%, transparent);
-}
+} */
 
 a {
     text-decoration: none;
@@ -68,4 +68,10 @@ label {
     display: flex;
     background-color: lightgrey;
     cursor: not-allowed;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+mat-form-field{
+    width: 100%;
 }

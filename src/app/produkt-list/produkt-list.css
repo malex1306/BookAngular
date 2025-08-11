@@ -89,7 +89,7 @@ h1 {
     margin-inline: 0.5rem;
   }
 
-  .pill-group {
+  /* .pill-group {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -140,7 +140,7 @@ h1 {
 
   .pill-group svg {
     margin-inline-start: 0.25rem;
-  }
+  } */
 
   .social-links {
     display: flex;
@@ -185,4 +185,9 @@ h1 {
 
   a:hover svg path {
     fill: var(--gray-900);
+  }
+
+  mat-card{
+    margin: 1.375rem;
+    cursor: pointer;
   }

@@ -5,17 +5,23 @@ import { ProductsService } from '../products.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { Observable, switchMap, of} from 'rxjs';
-
+import { MatMiniFabButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { CurrencyPipe } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-produkt-list',
-  imports: [SortPipe, RouterLink],
+  imports: [SortPipe, RouterLink, MatMiniFabButton, MatIcon, MatCardModule, CurrencyPipe, MatTableModule, MatButtonToggle, MatButtonToggleGroup],
   templateUrl: './produkt-list.html',
   styleUrl: './produkt-list.css',
 })
 export class ProduktList  {
   selectedProduct: Product | undefined;
   private route = inject(ActivatedRoute);
+  columnNames = ['title', 'price']
  
 
   // ✅ Signal used in template with products()

@@ -5,20 +5,26 @@
         </p>
         <p>{{product.price | currency:'EUR'}}</p>
         <form (ngSubmit)="changePrice(product)" #priceForm="ngForm">
-        <input placeholder="New price" type="number" name="price" required min="1" #priceCtrl="ngModel" [(ngModel)]="price" />
-        <button class="secondary" type="submit"[disabled]="priceForm.invalid">Change</button>
+            <mat-form-field>
+        <input placeholder="New price" type="number" name="price" required min="1" matInput #priceCtrl="ngModel" [(ngModel)]="price" />
+        <button mat-icon-button matSuffix type="submit"[disabled]="priceForm.invalid"><mat-icon>edit</mat-icon></button>
         @if (priceCtrl.dirty && (priceCtrl.invalid || priceCtrl.
             hasError('min'))) {
-                <span class="help-text">Please enter a valid price</span>
+                <mat-error>Please enter a valid price</mat-error>
             }
+            @if(priceCtrl.dirty && priceCtrl.hasError('priceMaximum')){
+                <mat-error>Price must be smaller or equal to 500</mat-error>
+            }
+             </mat-form-field>
         </form>
-        <div class="pill-group">
-                <p class="pill">{{product.category}}</p>
-        </div>
-        <div class="button-group">
+       
+        <mat-chip-set>
+            <mat-chip>{{ product.category}}</mat-chip>
+        </mat-chip-set>
+       
             @if (authService.isLoggedIn()){
-            <button (click)="addToCart(product.id)">Add to cart</button>
+            <button mat-raised-button (click)="addToCart(product.id)">Add to cart</button>
             }
-            <button class="delete" (click)="remove(product)">Delete</button>
-        </div>
+            <button mat-raised-button class="delete" (click)="remove(product)">Delete</button>
+       
     }

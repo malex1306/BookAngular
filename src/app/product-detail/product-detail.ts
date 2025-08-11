@@ -7,11 +7,16 @@ import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../cart.service';
-
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatError, MatSuffix } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatChipSet, MatChip } from '@angular/material/chips';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatButton, MatInput, MatFormField, MatError, MatIcon, MatSuffix, MatIconButton, MatChip, MatChipSet, MatSnackBarModule],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
 })
@@ -30,10 +35,16 @@ export class ProductDetail implements OnInit {
 //   return this.product()!.title;
 // }
 
-constructor(private productService: ProductsService, public authService: AuthService, private route: ActivatedRoute, private router: Router, private cartService: CartService){}
+constructor(private productService: ProductsService, public authService: AuthService, private route: ActivatedRoute, private router: Router, private cartService: CartService,
+  private snackbar: MatSnackBar
+){}
 
 addToCart(id: number){
-  this.cartService.addProduct(id).subscribe();
+  this.cartService.addProduct(id).subscribe(() => {
+    this.snackbar.open('Product added to cart!', undefined, {
+      duration: 1000
+    })
+  });
 }
 changePrice(product: Product){
   this.productService.updateProduct(product.id, this.price!).subscribe(() =>

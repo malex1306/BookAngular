@@ -1,5 +1,5 @@
 @if (!authService.isLoggedIn()) {
-    <button (click)="login()">Login</button>
+    <button mat-flat-button (click)="login()">Login</button>
 }@else {
-    <button (click)="logout()">Logout</button>
+    <button mat-flat-button (click)="logout()">Logout</button>
 }

@@ -1,8 +1,8 @@
-<div [formGroup]="cartForm">
-  <div formArrayName="products">
-    <div *ngFor="let control of cartForm.controls.products.controls; let i = index">
-      <label>{{ products[i].title }}</label>
-      <input [formControlName]="i" type="number" />
-    </div>
-  </div>
-</div>
+
+@for(product of cartForm.controls.products.controls; track $index){
+        <mat-form-field>
+      <mat-label>{{ products[$index].title }}</mat-label>
+      <input [formControlName]="$index" type="number" placeholder="{{products[$index].title}}" matInput/>
+      </mat-form-field>
+    }
+ 
