@@ -12,11 +12,11 @@
     position: relative;
 }
 
-input.valid {
+input.valid, input.ng-dirty.ng-valid {
     border: solid green;
 }
 
-input.invalid {
+input.invalid, input.ng-dirty.ng-invalid {
     border: solid red;
 }
 
@@ -62,4 +62,10 @@ a {
 label {
     margin-bottom: 4px;
     display: block;
+}
+
+.help-text {
+    display: flex;
+    background-color: lightgrey;
+    cursor: not-allowed;
 }

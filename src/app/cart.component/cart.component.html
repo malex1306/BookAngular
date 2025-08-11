@@ -1,8 +1,8 @@
 <div [formGroup]="cartForm">
-    <div fromArrayName="products">
-        @for(product of cartForm.controls.products.controls; track $index){
-            <label>{{products[$index].title}}</label>
-            <input [formControlName]="$index" type="number" />
-        }
+  <div formArrayName="products">
+    <div *ngFor="let control of cartForm.controls.products.controls; let i = index">
+      <label>{{ products[i].title }}</label>
+      <input [formControlName]="i" type="number" />
     </div>
+  </div>
 </div>

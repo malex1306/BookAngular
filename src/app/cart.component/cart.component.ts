@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Product } from '../product';
 import { CartService } from '../cart.service';
 import { ProductsService } from '../products.service';
 
 @Component({
-  selector: 'app-cart.component',
-  imports: [ReactiveFormsModule],
+  selector: 'app-cart',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css'
+  styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
   cartForm = new FormGroup({
@@ -16,29 +18,44 @@ export class CartComponent implements OnInit {
   });
   products: Product[] = [];
 
-  constructor( private cartService: CartService, private productsService: ProductsService){}
-
-  private getProducts(){
-    this.productsService.getProducts().subscribe(products => {
-      this.cartService.cart?.products.forEach(item => {
-        const product = products.find(p => p.id === item.productId);
-        if (product){
-          this.products.push(product);
-        }
-      });
-    });
-  }
-
-  private buildForm(){
-    this.products.forEach(() => {
-      this.cartForm.controls.products.push(
-        new FormControl(1, { nonNullable: true})
-      )
-    });
-  }
+  constructor(
+    private cartService: CartService,
+    private productsService: ProductsService
+  ) {}
 
   ngOnInit(): void {
-    this.getProducts();
-    this.buildForm();
+    // Immer wenn sich der Warenkorb ändert, Produkte laden & Formular bauen
+    this.cartService.cart$.subscribe(cart => {
+      if (cart && cart.products.length > 0) {
+        this.loadProducts(cart.products.map(p => p.productId));
+      } else {
+        this.products = [];
+        this.clearForm();
+      }
+    });
+
+    // Initial Warenkorb laden
+    this.cartService.loadCart().subscribe();
+  }
+
+  private loadProducts(productIds: number[]) {
+    this.productsService.getProducts().subscribe(allProducts => {
+      this.products = allProducts.filter(p => productIds.includes(p.id));
+      this.buildForm();
+    });
+  }
+
+  private buildForm() {
+    const productsFormArray = this.cartForm.controls.products as FormArray;
+    productsFormArray.clear();
+
+    this.products.forEach(() => {
+      productsFormArray.push(new FormControl(1, { nonNullable: true }));
+    });
+  }
+
+  private clearForm() {
+    const productsFormArray = this.cartForm.controls.products as FormArray;
+    productsFormArray.clear();
   }
 }
